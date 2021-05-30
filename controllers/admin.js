@@ -4,7 +4,6 @@ const UserTestResult = require('../models/user-test-result')
 
 
 exports.postTest = (req, res, next) => {
-  console.log('postCreateTest from adminController executed !');
 
   const adminId = req.body.adminId;
   const testName = req.body.testName;
@@ -30,7 +29,6 @@ exports.postTest = (req, res, next) => {
 
 
 exports.getTest = (req, res, next) => {
-  console.log('getTest from adminController executed !')
 
   Test.findAll()
   .then(tests => {
@@ -49,7 +47,6 @@ exports.getTest = (req, res, next) => {
 
 
 exports.postTestQuestion = (req, res, next) => {
-  console.log('postTestQuestion from adminController executed !');
 
   const testId = req.body.testId;
   const question = req.body.question;
@@ -82,7 +79,6 @@ exports.postTestQuestion = (req, res, next) => {
 
 
 exports.getReport = (req, res, next) => {
-  console.log('getReport from adminController executed !')
 
   let report = {};
   

@@ -4,7 +4,6 @@ const TestQuestion = require('../models/test-question');
 const UserTestResult = require('../models/user-test-result')
 
 exports.postUser = (req, res, next) => {
-  console.log('postSignUp from userController executed !')
 
  const fullName = req.body.fullName
  const email = req.body.email
@@ -41,7 +40,6 @@ User.findAll({
 }
 
 exports.getTest = (req, res, next) => {
-  console.log('getTest from userController executed !')
 
   Test.findAll()
   .then(tests => {
@@ -59,7 +57,6 @@ exports.getTest = (req, res, next) => {
 }
 
 exports.getQuestion = (req, res, next) => {
-  console.log('getQuestion from userController executed !')
 
   const testId = req.params.testId;
   console.log(testId);
@@ -84,7 +81,6 @@ exports.getQuestion = (req, res, next) => {
 }
 
 exports.postResult = (req, res, next) => {                                                 
- console.log('postResult from resultController executed !');
 
   const correctAnswers = req.body.correctAnswers
   const wrongAnswers = req.body.wrongAnswers
@@ -115,7 +111,6 @@ exports.postResult = (req, res, next) => {
 }
 
 exports.getResult = (req, res, next) => {
-  console.log('getResult from userController executed !')
 
   const userId = req.params.userId
 
