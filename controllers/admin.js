@@ -3,10 +3,9 @@ const TestQuestion = require('../models/test-question')
 const UserTestResult = require('../models/user-test-result')
 
 
-exports.postTest = (req, res) => {
+exports.postTest = (req, res, next) => {
   console.log('postCreateTest from adminController executed !');
 
-  console.log(req.body);
   const adminId = req.body.adminId;
   const testName = req.body.testName;
 
@@ -15,7 +14,6 @@ exports.postTest = (req, res) => {
    testName: testName
  })
  .then(result => {
-   console.log('Test created !');
    res.status(201).json({
      message: 'Test created successfully',
     testName: testName,

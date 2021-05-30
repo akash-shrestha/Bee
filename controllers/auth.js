@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -44,35 +43,38 @@ exports.signupAdmin = (req, res, next) => {
 }
 
 
-exports.login = (req, res, next) => {
+exports.signinAdmin = (req, res, next) => {
   const userName = req.body.userName;
   const password = req.body.password;
-  let loadedUser;
-  User.findOne({ email: email })
-    .then(user => {
-      if (!user) {
-        const error = new Error('A user with this email could not be found.');
+  let adminPassword;
+  Admin.findAll(
+    {where: { userName: userName },
+    attributes: ['password'],
+    raw: true
+   })
+    .then(passwordResult => {
+      if (passwordResult.length <= 0) {
+        const error = new Error('Admin with this user name could not be found !');
         error.statusCode = 401;
         throw error;
       }
-      loadedUser = user;
-      return bcrypt.compare(password, user.password);
+      adminPassword = passwordResult[0].password;
+      return bcrypt.compare(password, adminPassword);
     })
     .then(isEqual => {
       if (!isEqual) {
-        const error = new Error('Wrong password!');
+        const error = new Error('Wrong user name or password !');
         error.statusCode = 401;
         throw error;
       }
       const token = jwt.sign(
         {
-          email: loadedUser.email,
-          userId: loadedUser._id.toString()
+          userName: userName.toString()
         },
         'somesupersecretsecret',
         { expiresIn: '1h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+      res.status(200).json({ token: token, userName: userName.toString() });
     })
     .catch(err => {
       if (!err.statusCode) {

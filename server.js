@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
+require('dotenv').config();
 
 const sequelize = require('./util/database');
 const Admin = require('./models/admin');
@@ -13,6 +15,8 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(helmet());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -48,28 +52,13 @@ User.hasMany(UserTestResult);
 UserTestResult.belongsTo(Test);
 Test.hasMany(UserTestResult);
 
-// UserTestResult.findAll()
-// .then(result => {
-//   console.log(result);
-//   console.log('xxxxxxxxxxxxxxxx')
-// })
+const PORT = process.env.PORT || 3000
 
 sequelize
 .sync()
-.then(result => {
-  return Admin.findAll()
-})
-.then(admins => {
-  const admin = admins[0];
-  if (!admin) {
-    return Admin.create({ fullName: 'Akash Shrestha', userName: 'akash', password: 'password123'});
-  }
-  return admin;
-})
 .then(() => {
-  app.listen(3000, () => {
-    console.log('Server listening on port 3000 !');
-  });
+  app.listen(PORT)
+  console.log(`Server listening for incoming requests on port ${PORT} !`)
 })
 .catch(err => {
   console.log(err);
