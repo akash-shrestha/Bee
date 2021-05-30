@@ -1,2 +1,11 @@
 # Bee
-Simple Question Answer server app using Node.js based on REST API </br>
+Simple Question Answer server app using Node.js, Express.js, MySQL and Sequelize based on REST API </br>
+
+API details link: https://documenter.getpostman.com/view/12543346/TzXzDHC4 </br>
+
+Database ER diagram link: https://dbdiagram.io/d/60b3ce83b29a09603d172efb </br>
+
+Note:
+>The app is in its basic version for demo and needs many upgrades.
+>I did not include the email registration, verification and alert feature beacuse I generally use Stripe for email services and it requires a valid organization website and organization details for creating the account and using it services
+
